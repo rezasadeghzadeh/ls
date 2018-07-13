@@ -19,6 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('sendSms/{mobileNumber}', 'SendSmsController@send');
 
+Route::get('validateOtp/{mobileNumber}/{otpNumber}','OtpController@validateOtp');
+
+Route::post('saveUserData','UserDataController@saveOrUpdate');
 
 Route::post('signUp', function(Request $request){ // [1]
 

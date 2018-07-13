@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Otp;
 class SendSmsController extends Controller
 {
     function send($mobileNumber)
@@ -15,10 +14,18 @@ class SendSmsController extends Controller
             $randomNumber = mt_rand(1000, 9999);
             $message = "کد فعال سازی لایتنر حاجی فیروز و آقا رضا :" . $randomNumber;
             $receptor = array($mobileNumber);
-            $result = $api->Send($sender, $receptor, $message);
-            return response()->json([
+            //$result = $api->Send($sender, $receptor, $message);
+            $otp = Otp::firstOrCreate(['msisdn' => $mobileNumber],["otpNumber" =>  $randomNumber]);
+            //$otp->otpNumber = $randomNumber;
+            $otp->otpNumber = 1;
+            $otp->save();
+            /* return response()->json([
                 'status' => $result[0]->status == 1
+            ]);*/
+            return response()->json([
+                'status' => true
             ]);
+
         } catch (\Kavenegar\Exceptions\ApiException $e) {
             // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
             echo $e->errorMessage();
