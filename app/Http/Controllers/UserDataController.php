@@ -9,6 +9,7 @@ use Log;
 class UserDataController extends Controller
 {
     function saveOrUpdate(){
+        $userCode  =  Input::get("userCode");
         $msisdn = Input::get('msisdn');
         $educationBase =  Input::get('educationBase');
         $educationField = Input::get('educationField');
@@ -17,8 +18,9 @@ class UserDataController extends Controller
             $user  = User::where("msisdn",$msisdn)->first();
             if($user === null){
                 $user = new User;
+                $user->userCode = $userCode;
+                $user->msisdn =  $msisdn;
             }
-            $user->msisdn =  $msisdn;
             $user->educationBase = $educationBase;
             $user->educationField = $educationField;
             $user->save();

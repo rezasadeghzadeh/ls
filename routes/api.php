@@ -23,6 +23,8 @@ Route::get('validateOtp/{mobileNumber}/{otpNumber}','OtpController@validateOtp')
 
 Route::post('saveUserData','UserDataController@saveOrUpdate');
 
+Route::post('packagesInfo','PackageController@packageInfo');
+
 Route::post('signUp', function(Request $request){ // [1]
 
   // [2]
