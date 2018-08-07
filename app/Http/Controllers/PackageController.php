@@ -27,4 +27,27 @@ class PackageController extends Controller
             'userPackages' => $userPackages
         ]);
     }
+
+    function packageFlashCards(){
+        $userCode = Input::get("userCode");
+        $packageId = Input::get("packageId");
+        $user  =  DB::table('users')->where("userCode",$userCode)->first();
+        if($user === null){
+            return response()->json([
+                'status' => "invalid user"
+            ]);
+        }
+        $userPackage  = DB::table('userPackages')->where("userId",$user->id)->where("packageId", $packageId)->first();
+        if($userPackage === null){
+            return response()->json([
+                'status' => "invalid package"
+            ]);
+        }
+
+        $packageWords = DB::table('packageWords')->where("packageId", $packageId)->get();
+        return response()->json([
+            'flashcards' =>  $packageWords
+        ]);
+    }
+
 }

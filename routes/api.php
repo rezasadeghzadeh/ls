@@ -25,6 +25,8 @@ Route::post('saveUserData','UserDataController@saveOrUpdate');
 
 Route::post('packagesInfo','PackageController@packageInfo');
 
+Route::get('packages/flashcards','PackageController@packageFlashcards');
+
 Route::post('signUp', function(Request $request){ // [1]
 
   // [2]
